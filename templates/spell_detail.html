@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spell Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .details-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .details-container h4 {
+            color: #007bff;
+        }
+        .description-box {
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .description-title {
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Spell Details</h2>
+        <div class="details-container">
+            <h4>Name: {{ spell.name }}</h4>
+            <p><strong>Prerequisite:</strong> {{ spell.prereq }}</p>
+            <p><strong>Cast Time:</strong> {{ spell.cast_time }}</p>
+            <p><strong>Spell Type:</strong> {{ spell.spell_type }}</p>
+            <p><strong>Range:</strong> {{ spell.range }}</p>
+            <p><strong>Components:</strong> {{ spell.components }}</p>
+            <p><strong>Duration:</strong> {{ spell.duration }}</p>
+            <p><strong>Element:</strong> {{ spell.element }}</p>
+            <p><strong>Cycle:</strong> {{ spell.cycle }}</p>
+            <div class="description-box">
+                <p class="description-title">Description:</p>
+                <pre>{{ spell.description }}</pre>
+            </div>
+        </div>
+        <div class="btn-group mt-3">
+            <a href="{{ url_for('index') }}" class="btn btn-primary">Back</a>
+            {% if is_owner %}
+                <a href="{{ url_for('edit_spell', id=index) }}" class="btn btn-warning">Edit</a>
+                <form action="{{ url_for('delete_spell', id=index) }}" method="post" style="display: inline-block;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

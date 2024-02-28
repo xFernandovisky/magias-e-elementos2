@@ -1,0 +1,41 @@
+[
+    {
+        "name": "aaaaaaaa",
+        "description": "aaaa",
+        "prereq": "aa",
+        "cast_time": "aa",
+        "spell_type": "aa",
+        "spell_range": "aa",
+        "components": "aa",
+        "duration": "aa",
+        "element": "Arcano",
+        "cycle": 3,
+        "id": null
+    },
+    {
+        "name": "aaaaaaaaaaa",
+        "description": "aaa",
+        "prereq": "aa",
+        "cast_time": "aa",
+        "spell_type": "aa",
+        "spell_range": "aa",
+        "components": "aa",
+        "duration": "aa",
+        "element": "Arcano",
+        "cycle": 0,
+        "id": null
+    },
+    {
+        "name": "Fernando Moura",
+        "description": "aabbbb",
+        "prereq": "aaa",
+        "cast_time": "1 a\u00e7\u00e3o ",
+        "spell_type": "Dano",
+        "spell_range": "120 p\u00e9s",
+        "components": "V, S, M",
+        "duration": "Instantanea",
+        "element": "Arcano",
+        "cycle": 0,
+        "id": 2
+    }
+]

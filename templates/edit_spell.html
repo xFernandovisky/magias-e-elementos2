@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Spell</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .cycle-list {
+            display: none;
+            list-style-type: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+        .cycle-list li {
+            cursor: pointer;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+        .cycle-list li:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Spell</h1>
+    <form action="{{ url_for('edit_spell', id=spell.id) }}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ spell.name }}">
+        <label for="prereq">Prerequisite:</label>
+        <input type="text" id="prereq" name="prereq" value="{{ spell.prereq }}">
+        <label for="cast_time">Cast Time:</label>
+        <input type="text" id="cast_time" name="cast_time" value="{{ spell.cast_time }}">
+        <label for="spell_type">Spell Type:</label>
+        <input type="text" id="spell_type" name="spell_type" value="{{ spell.spell_type }}">
+        <label for="range">Range:</label>
+        <input type="text" id="range" name="range" value="{{ spell.range }}">
+        <label for="components">Components:</label>
+        <input type="text" id="components" name="components" value="{{ spell.components }}">
+        <label for="duration">Duration:</label>
+        <input type="text" id="duration" name="duration" value="{{ spell.duration }}">
+        <label for="element">Element:</label>
+        <input type="text" id="element" name="element" value="{{ spell.element }}">
+        <label for="cycle">Cycle:</label>
+        <input type="text" id="cycle" name="cycle" onfocus="showCycleList()" value="{{ spell.cycle }}">
+        <ul class="cycle-list" id="cycle-list">
+            <li onclick="selectCycle('Truque')">Truque</li>
+            <li onclick="selectCycle(1)">1</li>
+            <li onclick="selectCycle(2)">2</li>
+            <li onclick="selectCycle(3)">3</li>
+            <li onclick="selectCycle(4)">4</li>
+            <li onclick="selectCycle(5)">5</li>
+            <li onclick="selectCycle(6)">6</li>
+            <li onclick="selectCycle(7)">7</li>
+            <li onclick="selectCycle(8)">8</li>
+            <li onclick="selectCycle(9)">9</li>
+            <li onclick="selectCycle(10)">10</li>
+        </ul>
+        <textarea id="description" name="description" rows="6">{{ spell.description }}</textarea>
+        <input type="submit" value="Save">
+    </form>
+
+    <script>
+        function showCycleList() {
+            document.getElementById('cycle-list').style.display = 'block';
+        }
+
+        function selectCycle(cycle) {
+            document.getElementById('cycle').value = cycle;
+            document.getElementById('cycle-list').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

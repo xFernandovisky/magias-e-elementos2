@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Character</title>
+</head>
+<body>
+    <h1>Select Character</h1>
+    <form id="assignSpellForm">
+        <input type="hidden" id="spellId" value="{{ spell_id }}">
+        <label for="character">Select Character:</label>
+        <select name="character_id" id="character">
+            <!-- Options will be filled by JavaScript -->
+        </select>
+        <button type="button" onclick="loadCharacters()">Load Characters</button>
+        <button type="button" onclick="assignSpell()">Assign Spell</button>
+    </form>
+
+    <script>
+        function loadCharacters() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/get_characters', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var characters = JSON.parse(xhr.responseText);
+                    var characterSelect = document.getElementById('character');
+                    characterSelect.innerHTML = '';
+                    characters.forEach(function(character) {
+                        var option = document.createElement('option');
+                        option.value = character.id;
+                        option.textContent = character.name;
+                        characterSelect.appendChild(option);
+                    });
+                }
+            };
+            xhr.send();
+        }
+
+        function assignSpell() {
+            var spellId = document.getElementById('spellId').value;
+            var characterId = document.getElementById('character').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/assign_spell', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert('Spell assigned successfully!');
+                }
+            };
+            xhr.send('spell_id=' + spellId + '&character_id=' + characterId);
+            // Clear the selected character after assigning the spell
+            document.getElementById('character').value = '';
+        }
+    </script>
+</body>
+</html>
