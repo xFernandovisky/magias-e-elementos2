@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Character</title>
+</head>
+<body>
+    <h2>Select Character</h2>
+    <form id="assignSpellForm" action="{{ url_for('assign_spell', spell_id=spell_id) }}" method="post">
+        <input type="hidden" id="spellId" name="spell_id" value="{{ spell_id }}">
+        <select id="characterId" name="character_id">
+            {% for character in characters %}
+                <option value="{{ loop.index }}">{{ character.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Assign Spell</button>
+    </form>
+
+    <script>
+        // Nenhuma alteração necessária no script JavaScript
+        // O formulário agora envia uma solicitação POST diretamente para a rota 'assign_spell' no backend
+    </script>
+</body>
+</html>

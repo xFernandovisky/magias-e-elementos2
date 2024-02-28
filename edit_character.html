@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personagens</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .character-card {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .character-card h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Lista de Personagens</h2>
+        <div class="row">
+            {% for character in characters %}
+            <div class="col-md-6">
+                <div class="character-card">
+                    <h3>{{ character.name }}</h3>
+                    <p>Raça: {{ character.race }}</p>
+                    <p>Elementos: 
+                        {% for element, level in character.elements %}
+                            {{ element }} (Nível {{ level }}){% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                    <a href="{{ url_for('character_detail', id=loop.index0) }}" class="btn btn-primary">Detalhes</a>
+                    <a href="{{ url_for('edit_character', id=loop.index0) }}" class="btn btn-secondary">Editar</a>
+                    <form action="{{ url_for('delete_character', id=loop.index0) }}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" id="create-character-btn" data-toggle="modal" data-target="#create-character-modal">Criar Personagem</button>
+        </div>
+    </div>
+
+    <!-- Modal para criar personagem -->
+    <div class="modal fade" id="create-character-modal" tabindex="-1" role="dialog" aria-labelledby="create-character-modal-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="create-character-modal-label">Criar Personagem</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ url_for('create_character') }}" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="character_name">Nome:</label>
+                            <input type="text" class="form-control" id="character_name" name="character_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="race">Raça:</label>
+                            <input type="text" class="form-control" id="race" name="race" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="element1">Elemento 1:</label>
+                            <select class="form-control" id="element1" name="element1">
+                                {% for element in elements %}
+                                <option value="{{ element }}">{{ element }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="number" class="form-control mt-2" id="element1_level" name="element1_level" placeholder="Nível do Elemento" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="element2">Elemento 2:</label>
+                            <select class="form-control" id="element2" name="element2">
+                                {% for element in elements %}
+                                <option value="{{ element }}">{{ element }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="number" class="form-control mt-2" id="element2_level" name="element2_level" placeholder="Nível do Elemento" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="element3">Elemento 3:</label>
+                            <select class="form-control" id="element3" name="element3">
+                                {% for element in elements %}
+                                <option value="{{ element }}">{{ element }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="number" class="form-control mt-2" id="element3_level" name="element3_level" placeholder="Nível do Elemento" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Criar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
